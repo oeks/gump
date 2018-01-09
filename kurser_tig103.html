@@ -270,6 +270,10 @@
             display: none;
         }
         
+        .k1, .k3 {
+            cursor: pointer;
+        }
+        
     </style>
 
 </head>
@@ -312,6 +316,7 @@
         </ul>
         
         <img src="kurser_1_doku.png" class="k1" style="margin: 10px auto 0; display: block;" />
+        <img src="kurser_2_doku.png" class="k3" style="margin: 10px auto 0; display: block;" />
 
         <div class="box k2">
             Lorem ipsum
@@ -322,29 +327,43 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <script>
-        $('.navTrigger').click(function () {
-            $(this).toggleClass('tLazy active');
-            $('.navWrap').toggleClass('wLazy open');
-        });
+        $(function() {
         
-        $('.a1').click(function () {
-            $(this).removeAttr('class');
-            $(this).addClass('a1 bright');
-            $('.a2').removeClass('bright dark darker');
-            $('.a2').addClass('dark');
-            $('.box.k2').hide();
-            $('.k1').show();
-        });
+            $('.k3').hide();
+        
+            $('.navTrigger').click(function () {
+                $(this).toggleClass('tLazy active');
+                $('.navWrap').toggleClass('wLazy open');
+            });
+        
+            $('.k1').click(function () {
+                $('.k1').hide();
+                $('.k3').show();
+            });
+            
+            $('.k3').click(function () {
+                $('.k3').hide();
+                $('.k1').show();
+            });
+            
+            $('.a1').click(function () {
+                $(this).removeAttr('class');
+                $(this).addClass('a1 bright');
+                $('.a2').removeClass('bright dark darker');
+                $('.a2').addClass('dark');
+                $('.box.k2').hide();
+                $('.k1').show();
+            });
 
-        $('.a2').click(function () {
-            $(this).removeAttr('class');
-            $(this).addClass('a2 bright');
-            $('.a1').removeClass('bright dark darker');
-            $('.a1').addClass('dark');
-            $('.k1').hide();
-            $('.box.k2').show();
+            $('.a2').click(function () {
+                $(this).removeAttr('class');
+                $(this).addClass('a2 bright');
+                $('.a1').removeClass('bright dark darker');
+                $('.a1').addClass('dark');
+                $('.k1').hide();
+                $('.box.k2').show();
+            });
         });
-        
     </script>
 
 </body>
