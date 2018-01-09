@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GUMP</title>
+
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-weight: normal;
+        }
+        
+        #appWrap {
+            width: 360px;
+            height: 640px;
+            background: rgb(255, 255, 255);
+            margin: 20px auto 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            font-weight: normal;
+            margin: 0 auto;
+            padding: 21px 0 11px;
+            display: block;
+        }
+        
+        .navWrap {
+            width: 100%;
+            height: 100%;
+            background: rgb(235, 235, 235);
+            z-index: 1;
+            position: absolute;
+            transition: all 0.4s;
+        }
+        
+        .navWrap {
+            left: -360px;
+        }
+        
+        .navWrap.open {
+            left: 0;
+            transition: all 0.4s;
+        }
+        
+        .navWrap a {
+            width: 100%;
+            font-size: 24px;
+            line-height: 38px;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+            margin: 10px 0;
+            display: block;
+        }
+        
+        .navWrap a:first-of-type {
+            margin-top: 70px;
+        }
+        
+        .goBack {
+            cursor: pointer;
+            top: 10px;
+            right: 10px;
+            position: absolute;
+            z-index: 2;
+        }
+        
+        .navTrigger {
+            cursor: pointer;
+            width: 24px;
+            /* 30px */
+            height: 25px;
+            margin: auto;
+            z-index: 2;
+            position: absolute;
+            left: 14px;
+            top: 14px;
+        }
+        
+        .navTrigger i {
+            background-color: #000;
+            border-radius: 2px;
+            content: '';
+            display: block;
+            width: 100%;
+            height: 4px;
+        }
+        
+        .navTrigger i:nth-child(2) {
+            margin: 5px 0;
+        }
+        
+        .navTrigger.active i:nth-child(1) {
+            animation: inT 0.4s forwards;
+        }
+        
+        .navTrigger.active i:nth-child(2) {
+            animation: inM 0.4s forwards;
+        }
+        
+        .navTrigger.active i:nth-child(3) {
+            animation: inBtm 0.4s forwards;
+        }
+        
+        @keyframes inM {
+            50% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(45deg);
+            }
+        }
+        
+        @keyframes outM {
+            50% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(45deg);
+            }
+        }
+        
+        @keyframes inT {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(9px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(9px) rotate(135deg);
+            }
+        }
+        
+        @keyframes outT {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(9px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(9px) rotate(135deg);
+            }
+        }
+        
+        @keyframes inBtm {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-9px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-9px) rotate(135deg);
+            }
+        }
+        
+        @keyframes outBtm {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-9px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-9px) rotate(135deg);
+            }
+        }
+        
+        .wLazy {
+            z-index: 2;
+        }
+        
+        .tLazy {
+            z-index: 3;
+        }
+        
+        ul.boxNav {
+            width: 320px;
+            margin: 10px auto;
+            padding: 0;
+            display: table;
+            position: relative;
+        }
+        ul.boxNav li {
+            text-align: center;
+            display: table-cell;
+            min-width: 70px;
+        }
+        
+        .bright {
+            background: rgb(255,255,255);
+        }
+        
+        .dark {
+            background: rgb(140,141,145);
+        }
+        
+        .darker {
+            background: rgb(113, 114, 117);
+        }
+        
+        ul.boxNav li a {
+            padding: 16px 0;
+            color: #fff;
+            font-size: 14px;
+            font-weight: normal;
+            text-decoration: underline;
+            display: block;
+        }
+        
+        ul.boxNav li.bright a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        .box {
+            width: 280px;
+            background: rgb(232, 232, 232);
+            padding: 20px;
+            margin: 10px auto;
+            position: relative;
+        }
+        
+        .box h2 {
+            font-size: 20px;
+            margin: 0 0 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 18px;
+            text-align: center;
+            font-weight: normal;
+            display: block;
+        }
+        
+        .box a {
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            padding: 8px 0;
+            display: block;
+            text-decoration: underline;
+        }
+
+        .box.k2, .box.k3 {
+            display: none;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+
+
+    <div id="appWrap">
+
+        <div class="navTrigger">
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+        
+        <div class="goBack">
+            <a href="index.html">
+                <svg version="1.2" preserveAspectRatio="none" viewBox="0 0 24 24" style="opacity: 1; fill: rgb(0, 0, 0); width: 32px; height: 32px;"><g><path xmlns:default="http://www.w3.org/2000/svg" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" style="fill: rgb(0, 0, 0);"></path></g></svg>
+            </a>
+        </div>
+
+        <div class="navWrap">
+            <a href="index.html">Hem</a>
+            <a href="kurser.html">Kurser</a>
+            <a href="schema.html">Schema</a>
+            <a href="ladok.html">Ladok</a>
+            <a href="meddelanden.html">Meddelanden</a>
+            <a href="mail.html">Mail</a>
+            <a href="senaste_nytt.html">Senaste nytt</a>
+        </div>
+
+        <h1>Ladok</h1>
+        
+        <ul class="boxNav">
+            <li class="a1 bright"><a href="javascript:;">Resultat</a></li>
+            <li class="a2 dark"><a href="javascript:;">Kursanmälan</a></li>
+            <li class="a3 darker"><a href="javascript:;">Tentamensanmälan</a></li>
+        </ul>
+        
+        <img src="ladok_1_res.png" class="k1" style="margin: 10px auto 0; display: block;" />
+        <img src="ladok_2_kurs.png" class="k2" style="margin: 10px auto 0; display: block;" />
+        <img src="ladok_3_tenta.png" class="k3" style="margin: 10px auto 0; display: block;" />
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+        $(function() {
+        
+            $('.k2, .k3').hide();
+
+            $('.navTrigger').click(function () {
+                $(this).toggleClass('tLazy active');
+                $('.navWrap').toggleClass('wLazy open');
+            });
+
+            $('.a1').click(function () {
+                $(this).removeAttr('class');
+                $(this).addClass('a1 bright');
+                $('.a2').removeClass('bright dark darker');
+                $('.a2').addClass('dark');
+                $('.a3').removeClass('bright dark darker');
+                $('.a3').addClass('darker');
+                $('.k2, .k3').hide();
+                $('.k1').show();
+            });
+
+            $('.a2').click(function () {
+                $(this).removeAttr('class');
+                $(this).addClass('a2 bright');
+                $('.a1').removeClass('bright dark darker');
+                $('.a1').addClass('dark');
+                $('.a3').removeClass('bright dark darker');
+                $('.a3').addClass('darker');
+                $('.k1, .k3').hide();
+                $('.k2').show();
+            });
+
+            $('.a3').click(function () {
+                $(this).removeAttr('class');
+                $(this).addClass('a3 bright');
+                $('.a1').removeClass('bright dark darker');
+                $('.a1').addClass('dark');
+                $('.a2').removeClass('bright dark darker');
+                $('.a2').addClass('darker');
+                $('.k1, .k2').hide();
+                $('.k3').show();
+            });
+            
+        });
+    </script>
+
+</body>
+
+</html>
